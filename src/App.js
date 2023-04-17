@@ -1,23 +1,34 @@
-import logo from './logo.svg';
+import Form from './components/Form';
+import Lists from './components/Lists';
 import './App.css';
-
+import { useState, useEffect } from 'react';
 function App() {
+  const API_URL = 'https://jsonplaceholder.typicode.com/';
+  const [reqType, setReqType] = useState('users')
+  const [items, setItems] = useState([])
+  const [isloading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    const getItems = async () => {
+      try {
+        const result = await fetch(`${API_URL}${reqType}`);
+        const data = await result.json()
+        setItems(data)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getItems()
+  },[reqType])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Form
+        reqType={reqType}
+        setReqType={setReqType}
+        isloading={isloading}
+        setIsLoading={setIsLoading}
+      />
+      <Lists items={items} isloading={isloading} setIsLoading={setIsLoading} />
     </div>
   );
 }
