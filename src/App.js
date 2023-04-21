@@ -1,5 +1,6 @@
 import Form from './components/Form';
 import Lists from './components/Lists';
+import Table from './components/Table';
 import './App.css';
 import { useState, useEffect } from 'react';
 function App() {
@@ -28,7 +29,8 @@ function App() {
         isloading={isloading}
         setIsLoading={setIsLoading}
       />
-      <Lists items={items} isloading={isloading} setIsLoading={setIsLoading} />
+      {/* <Lists items={items} isloading={isloading} setIsLoading={setIsLoading} /> */}
+      <Table items={items} />
     </div>
   );
 }
